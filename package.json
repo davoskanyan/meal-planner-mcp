@@ -1,0 +1,30 @@
+{
+  "name": "meal-planner-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/davoskanyan/meal-planner-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/davoskanyan/meal-planner-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davoskanyan/meal-planner-mcp.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "server.ts",
+  "scripts": {
+    "start": "npx -y tsx server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.22.0",
+    "express": "^5.1.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1"
+  }
+}
