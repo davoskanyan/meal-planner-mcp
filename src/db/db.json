@@ -1,0 +1,188 @@
+{
+  "ingredients": [
+    {
+      "id": "chicken",
+      "name": "Chicken",
+      "unit": "kg"
+    },
+    {
+      "id": "beef",
+      "name": "Beef",
+      "unit": "kg"
+    },
+    {
+      "id": "banana",
+      "name": "Banana",
+      "unit": "pcs"
+    },
+    {
+      "id": "milk",
+      "name": "Milk",
+      "unit": "l"
+    },
+    {
+      "id": "salt",
+      "name": "Salt",
+      "unit": "g"
+    },
+    {
+      "id": "egg",
+      "name": "Egg",
+      "unit": "pcs"
+    },
+    {
+      "id": "pasta",
+      "name": "Pasta",
+      "unit": "g"
+    },
+    {
+      "id": "bacon",
+      "name": "Bacon",
+      "unit": "g"
+    },
+    {
+      "id": "parmesan",
+      "name": "Parmesan Cheese",
+      "unit": "g"
+    },
+    {
+      "id": "black-pepper",
+      "name": "Black Pepper",
+      "unit": "g"
+    },
+    {
+      "id": "beets",
+      "name": "Beets",
+      "unit": "g"
+    },
+    {
+      "id": "cabbage",
+      "name": "Cabbage",
+      "unit": "g"
+    },
+    {
+      "id": "potatoes",
+      "name": "Potatoes",
+      "unit": "g"
+    },
+    {
+      "id": "carrots",
+      "name": "Carrots",
+      "unit": "g"
+    },
+    {
+      "id": "onions",
+      "name": "Onions",
+      "unit": "g"
+    },
+    {
+      "id": "tomato-paste",
+      "name": "Tomato Paste",
+      "unit": "g"
+    },
+    {
+      "id": "beef-broth",
+      "name": "Beef Broth",
+      "unit": "ml"
+    },
+    {
+      "id": "garlic",
+      "name": "Garlic",
+      "unit": "g"
+    },
+    {
+      "id": "dill",
+      "name": "Dill",
+      "unit": "g"
+    }
+  ],
+  "recipes": [
+    {
+      "id": "chicken-soup",
+      "name": "Chicken Soup",
+      "ingredients": [
+        {
+          "id": "chicken",
+          "quantity": 1
+        },
+        {
+          "id": "salt"
+        }
+      ]
+    },
+    {
+      "id": "omlette",
+      "name": "Omlette",
+      "ingredients": [
+        {
+          "id": "egg",
+          "quantity": 2
+        }
+      ]
+    },
+    {
+      "id": "spaghetti-carbonara",
+      "name": "Spaghetti Carbonara",
+      "ingredients": [
+        {
+          "id": "pasta",
+          "quantity": 400
+        },
+        {
+          "id": "egg",
+          "quantity": 2
+        },
+        {
+          "id": "bacon",
+          "quantity": 200
+        },
+        {
+          "id": "parmesan",
+          "quantity": 100
+        },
+        {
+          "id": "black-pepper",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "id": "borscht",
+      "name": "Borscht",
+      "ingredients": [
+        {
+          "id": "beets",
+          "quantity": 500
+        },
+        {
+          "id": "cabbage",
+          "quantity": 300
+        },
+        {
+          "id": "potatoes",
+          "quantity": 400
+        },
+        {
+          "id": "carrots",
+          "quantity": 200
+        },
+        {
+          "id": "onions",
+          "quantity": 150
+        },
+        {
+          "id": "tomato-paste",
+          "quantity": 50
+        },
+        {
+          "id": "beef-broth",
+          "quantity": 1000
+        },
+        {
+          "id": "dill",
+          "quantity": 10
+        }
+      ]
+    }
+  ]
+}

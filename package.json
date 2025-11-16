@@ -17,12 +17,14 @@
   "scripts": {
     "start": "npx -y concurrently 'npm run start:*' --prefix-colors auto",
     "start:mcp": "npx -y tsx --watch src/app.ts --port 3000",
-    "start:inspector": "npx -y @modelcontextprotocol/inspector http://localhost:3000/mcp"
+    "start:inspector": "npx -y @modelcontextprotocol/inspector http://localhost:3000/mcp",
+    "start:json-server": "npx -y json-server --watch src/db/db.json --port 3001"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.22.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "json-server": "^1.0.0-beta.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {
