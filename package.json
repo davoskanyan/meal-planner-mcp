@@ -15,15 +15,18 @@
   "type": "module",
   "main": "server.ts",
   "scripts": {
-    "start": "npx -y tsx server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx -y concurrently 'npm run start:*' --prefix-colors auto",
+    "start:mcp": "npx -y tsx --watch server.ts --port 3000",
+    "start:inspector": "npx -y @modelcontextprotocol/inspector http://localhost:3000/mcp"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.22.0",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/node": "^24.10.1"
   }
