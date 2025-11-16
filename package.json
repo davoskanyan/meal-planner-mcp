@@ -13,10 +13,10 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "server.ts",
+  "main": "src/app.ts",
   "scripts": {
     "start": "npx -y concurrently 'npm run start:*' --prefix-colors auto",
-    "start:mcp": "npx -y tsx --watch server.ts --port 3000",
+    "start:mcp": "npx -y tsx --watch src/app.ts --port 3000",
     "start:inspector": "npx -y @modelcontextprotocol/inspector http://localhost:3000/mcp"
   },
   "dependencies": {
