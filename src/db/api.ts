@@ -1,15 +1,16 @@
-const JSON_SERVER_URL = "http://localhost:3001";
-import { z } from "zod";
+import z from "zod";
+import {
+  IngredientListSchema,
+  IngredientSchema,
+  UpdateIngredientSchema,
+  RecipeListSchema,
+  RecipeSchema,
+  UpdateRecipeSchema,
+} from "./schema";
 
-export const IngredientSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  unit: z.enum(["kg", "pcs", "g", "ml", "l"]),
-});
+const JSON_SERVER_URL = "http://localhost:3001";
 
 export type Ingredient = z.infer<typeof IngredientSchema>;
-
-export const IngredientListSchema = z.array(IngredientSchema);
 
 export const getIngredientList = async () => {
   const response = await fetch(`${JSON_SERVER_URL}/ingredients`);
@@ -47,13 +48,6 @@ export const deleteIngredient = async (id: string) => {
   return response.json();
 };
 
-export const UpdateIngredientSchema = z.object({
-  id: z.string(),
-  name: z.string().optional(),
-  quantity: z.number().optional(),
-  unit: z.string().optional(),
-});
-
 export const updateIngredient = async ({
   id,
   ...updates
@@ -64,19 +58,6 @@ export const updateIngredient = async ({
   });
   return response.json();
 };
-
-const RecepeIngredientSchema = z.object({
-  id: z.string(),
-  quantity: z.number().optional(),
-});
-
-export const RecipeSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  ingredients: z.array(RecepeIngredientSchema),
-});
-
-export const RecipeListSchema = z.array(RecipeSchema);
 
 export const getRecipeList = async () => {
   const response = await fetch(`${JSON_SERVER_URL}/recipes`);
@@ -117,12 +98,6 @@ export const deleteRecipe = async (id: string) => {
   return response.json();
 };
 
-export const UpdateRecipeSchema = z.object({
-  id: z.string(),
-  name: z.string().optional(),
-  ingredients: z.array(RecepeIngredientSchema).optional(),
-});
-
 export const updateRecipe = async ({
   id,
   ...updates
@@ -135,4 +110,37 @@ export const updateRecipe = async ({
     body: JSON.stringify(updates),
   });
   return response.json();
+};
+
+export const addIngredientToRecipe = async (
+  recipeId: string,
+  ingredientId: string,
+  quantity: number | undefined
+) => {
+  const recipe = await getRecipe(recipeId);
+  if (!recipe) {
+    throw new Error(`Recipe with id ${recipeId} not found`);
+  }
+
+  const ingredientExists = recipe.ingredients.some(
+    (ing) => ing.id === ingredientId
+  );
+  if (ingredientExists) {
+    return recipe;
+  }
+
+  const updatedIngredients = [
+    ...recipe.ingredients,
+    { id: ingredientId, quantity },
+  ];
+
+  const response = await fetch(`${JSON_SERVER_URL}/recipes/${recipeId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ingredients: updatedIngredients }),
+  });
+  const data = await response.json();
+  return RecipeSchema.parse(data);
 };

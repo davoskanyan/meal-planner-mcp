@@ -2,19 +2,12 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import {
   IngredientListSchema,
-  getIngredientList,
   IngredientSchema,
-  addIngredient,
-  deleteIngredient,
   UpdateIngredientSchema,
-  updateIngredient,
   RecipeListSchema,
-  getRecipeList,
   RecipeSchema,
-  addRecipe,
-  deleteRecipe,
   UpdateRecipeSchema,
-  updateRecipe,
+  api,
 } from "../db";
 
 export function registerTools(server: McpServer) {
@@ -29,7 +22,7 @@ export function registerTools(server: McpServer) {
       },
     },
     async () => {
-      const ingredients = await getIngredientList();
+      const ingredients = await api.getIngredientList();
       const structuredContent = { ingredients };
 
       return {
@@ -57,7 +50,7 @@ export function registerTools(server: McpServer) {
       outputSchema: IngredientSchema,
     },
     async (ingredient) => {
-      const addedIngredient = await addIngredient(ingredient);
+      const addedIngredient = await api.addIngredient(ingredient);
       return {
         content: [
           {
@@ -83,7 +76,7 @@ export function registerTools(server: McpServer) {
       outputSchema: IngredientSchema,
     },
     async ({ id }) => {
-      const deletedIngredient = await deleteIngredient(id);
+      const deletedIngredient = await api.deleteIngredient(id);
 
       return {
         content: [
@@ -110,7 +103,7 @@ export function registerTools(server: McpServer) {
       outputSchema: IngredientSchema,
     },
     async (ingredient) => {
-      const updatedIngredient = await updateIngredient(ingredient);
+      const updatedIngredient = await api.updateIngredient(ingredient);
       return {
         content: [
           {
@@ -138,7 +131,7 @@ export function registerTools(server: McpServer) {
       },
     },
     async () => {
-      const recipes = await getRecipeList();
+      const recipes = await api.getRecipeList();
       const structuredContent = { recipes };
 
       return {
@@ -163,7 +156,7 @@ export function registerTools(server: McpServer) {
       outputSchema: RecipeSchema,
     },
     async (recipe) => {
-      const addedRecipe = await addRecipe(recipe);
+      const addedRecipe = await api.addRecipe(recipe);
       return {
         content: [
           {
@@ -189,7 +182,7 @@ export function registerTools(server: McpServer) {
       outputSchema: RecipeSchema,
     },
     async ({ id }) => {
-      const deletedRecipe = await deleteRecipe(id);
+      const deletedRecipe = await api.deleteRecipe(id);
 
       return {
         content: [
@@ -216,7 +209,7 @@ export function registerTools(server: McpServer) {
       outputSchema: RecipeSchema,
     },
     async (recipe) => {
-      const updatedRecipe = await updateRecipe(recipe);
+      const updatedRecipe = await api.updateRecipe(recipe);
       return {
         content: [
           {
@@ -229,6 +222,41 @@ export function registerTools(server: McpServer) {
           },
         ],
         structuredContent: updatedRecipe,
+      };
+    }
+  );
+
+  server.registerTool(
+    "add-ingredient-to-recipe",
+    {
+      title: "Add Ingredient to Recipe Tool",
+      description: "Add an ingredient to a recipe",
+      inputSchema: z.object({
+        recipeId: z.string(),
+        ingredientId: z.string(),
+        quantity: z.number().optional(),
+      }),
+      outputSchema: { recipe: RecipeSchema },
+    },
+    async ({ recipeId, ingredientId, quantity }) => {
+      const recipe = await api.addIngredientToRecipe(
+        recipeId,
+        ingredientId,
+        quantity
+      );
+      const structuredContent = { recipe };
+      return {
+        content: [
+          {
+            type: "text",
+            text: "Ingredient added to recipe successfully",
+          },
+          {
+            type: "text",
+            text: JSON.stringify(structuredContent),
+          },
+        ],
+        structuredContent,
       };
     }
   );
